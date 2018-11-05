@@ -1,0 +1,20 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "import/no-extraneous-dependencies": "off",
+    "import/no-named-as-default": "off",
+    "import/order": "off",
+    "sort-imports": 2,
+    "react/require-default-props": "off",
+    "react/default-props-match-prop-types": 2,
+    "react/button-has-type": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/sort-comp": "off"
+  },
+  "env": {
+    "jest": true,
+    "browser": true
+  }
+}
