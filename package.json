@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nodemon --watch src --exec 'npm run compile'",
     "compile": "babel src --out-file ./dist/backend/index.js",
-    "start": "npm run build & live-server ./dist --no-css-inject",
+    "start": "nodemon --watch src --exec 'npx babel src --out-file ./dist/backend/index.js' & live-server ./dist --no-css-inject",
     "prettier": "prettier --write ./src/*"
   },
   "repository": {
