@@ -1,0 +1,6 @@
+{
+  "watch": "src/**/*.js",
+  "execMap": {
+    "js": "babel src --out-file ./dist/backend/index.js"
+  }
+}
