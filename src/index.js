@@ -1,3 +1,5 @@
+import './dupa';
+
 // eslint powinien rzucać waringiem
 console.log('TU ROBIMY CAŁĄ LOGIKĘ');
 
