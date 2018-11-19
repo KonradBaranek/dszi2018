@@ -11,7 +11,8 @@
     "react/default-props-match-prop-types": 2,
     "react/button-has-type": "off",
     "jsx-a11y/label-has-associated-control": "off",
-    "react/sort-comp": "off"
+    "react/sort-comp": "off",
+    "no-console": "off"
   },
   "env": {
     "jest": true,
