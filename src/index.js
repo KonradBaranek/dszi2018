@@ -46,13 +46,4 @@ const t = z.addTruck(0, 4);
 
 drawMap(z);
 
-setTimeout(() => {
-  t.move(1, 0);
-  drawMap(z);
-}, 1000);
-
-setTimeout(() => {
-  t.move(0, 1);
-  drawMap(z);
-  mapLog();
-}, 2000);
+console.log(z.getMap());

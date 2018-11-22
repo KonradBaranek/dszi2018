@@ -9,11 +9,11 @@ export function drawMap(mapObject) {
 
   const matrix = mapObject.getWholeMap();
   matrix.forEach((row, rowIndex) => {
-    row.forEach((cell, cellIndex) => {
+    row.forEach((cell, columnIndex) => {
       let tooltipText = '';
 
-      if (typeof objectMatrix[rowIndex][cellIndex] === 'object') {
-        const obj = objectMatrix[rowIndex][cellIndex];
+      if (typeof objectMatrix[rowIndex][columnIndex] === 'object') {
+        const obj = objectMatrix[rowIndex][columnIndex];
         tooltipText = `${obj.constructor.name}\n`;
 
         tooltipText += JSON.stringify(obj)
@@ -24,9 +24,22 @@ export function drawMap(mapObject) {
           .replace(/:/g, ': ');
       }
 
-      $('#map').append(
-        `<img class=${rowIndex} title='${tooltipText}' src="assets/${TILES[cell]}.png"/>`,
-      );
+      if (cell === 0) {
+        let value = 0;
+        if (matrix[rowIndex - 1] && matrix[rowIndex - 1][columnIndex] === 0) value += 1;
+        if (matrix[rowIndex][columnIndex + 1] === 0) value += 10;
+        if (matrix[rowIndex + 1] && matrix[rowIndex + 1][columnIndex] === 0) value += 100;
+        if (matrix[rowIndex][columnIndex - 1] === 0) value += 1000;
+        $('#map').append(
+          `<img class=${rowIndex} title='${tooltipText}' src="assets/${
+            TILES[cell]
+          }-${value}.png"/>`,
+        );
+      } else {
+        $('#map').append(
+          `<img class=${rowIndex} title='${tooltipText}' src="assets/${TILES[cell]}.png"/>`,
+        );
+      }
     });
     $(`.${rowIndex}`).wrapAll("<div class='row' />");
   });
