@@ -8,3 +8,5 @@ export const NUMBER_TILES = {
 };
 
 export const JUNKYARD = [['mix', 2000], ['plastic', 2000], ['paper', 2000], ['metal', 2000]];
+
+export const ROADS_FACTOR = 4; // cannot be smaller than 4 (will freeze brovser)

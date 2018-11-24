@@ -1,4 +1,4 @@
-import { JUNKYARD, STRING_TILES } from '../const';
+import { JUNKYARD, STRING_TILES, ROADS_FACTOR } from '../const';
 
 import House from '../house';
 import Junkyard from '../junkyard';
@@ -16,6 +16,12 @@ export default class CreateWorld {
 
     this.placeJunkYards();
 
+    this.placeHouses();
+
+    return this.map;
+  }
+
+  placeHouses() {
     this.map = this.map.map((row, indexHeight) =>
       row.map(
         (cell, indexWidth) =>
@@ -27,8 +33,6 @@ export default class CreateWorld {
             : cell,
       ),
     );
-
-    return this.map;
   }
 
   placeJunkYards() {
@@ -46,7 +50,7 @@ export default class CreateWorld {
 
   placeRoads() {
     let arrayOfNumbers = [];
-    for (let i = 0; i < this.size.height / 4; i += 1) {
+    for (let i = 0; i < this.size.height / ROADS_FACTOR; i += 1) {
       const position = Math.floor(Math.random() * this.size.height);
       const isFine = arrayOfNumbers.every(cell => Math.abs(cell - position) > 2);
       if (isFine) {
@@ -57,7 +61,7 @@ export default class CreateWorld {
       }
     }
     arrayOfNumbers = [];
-    for (let i = 0; i < this.size.width / 4; i += 1) {
+    for (let i = 0; i < this.size.width / ROADS_FACTOR; i += 1) {
       const position = Math.floor(Math.random() * this.size.width);
       const isFine = arrayOfNumbers.every(cell => Math.abs(cell - position) > 2);
       if (isFine) {
