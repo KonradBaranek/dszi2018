@@ -2,7 +2,7 @@ import CreateWorld from './createWorld';
 import House from '../house';
 import Junkyard from '../junkyard';
 import Road from '../road';
-import { STRING_TILES } from '../enum';
+import { STRING_TILES } from '../const';
 import Truck from '../truck';
 
 export default class World {
@@ -24,25 +24,10 @@ export default class World {
     return null;
   }
 
-  addHouse(positionX, positionY) {
-    this.placeOnMap(
-      new House(
-        { frontPhoto: null, contentPhoto: null, type: 'mix', capacity: 2 },
-        { posX: positionX, posY: positionY },
-      ),
-      positionX,
-      positionY,
-    );
-  }
-
   addTruck(positionX, positionY) {
     const t = new Truck(positionX, positionY, 100);
     this.trucks.push(t);
     return t;
-  }
-
-  addJunkyard(positionX, positionY, dumpType = ['mix', 2000]) {
-    this.placeOnMap(new Junkyard(...dumpType), positionX, positionY);
   }
 
   getObject(positionX, positionY) {
@@ -56,8 +41,6 @@ export default class World {
   getRoadMap() {
     return this.map.map(e => e.map(o => (o === STRING_TILES.road ? 0 : 1)));
   }
-
-  // zwraca wszystkie instancje na mapie w formie tablicy intow
 
   getWholeMap() {
     const newMap = this.map.map(e =>

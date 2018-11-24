@@ -6,3 +6,5 @@ export const NUMBER_TILES = {
   '3': 'truck',
   '4': 'dump',
 };
+
+export const JUNKYARD = [['mix', 2000], ['plastic', 2000], ['paper', 2000], ['metal', 2000]];
