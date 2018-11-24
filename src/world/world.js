@@ -1,13 +1,14 @@
-import House from './house';
-import Junkyard from './junkyard';
-import Road from './road';
-import Truck from './truck';
+import CreateWorld from './createWorld';
+import House from '../house';
+import Junkyard from '../junkyard';
+import Road from '../road';
+import { STRING_TILES } from '../enum';
+import Truck from '../truck';
 
 export default class World {
   constructor(height, width) {
-    this.map = new Array(height).fill(0).map(() => new Array(width).fill(new Road()));
+    this.map = new CreateWorld(height, width).createMap();
     this.trucks = [];
-    this.TILES = { road: 0, notRoad: 1, house: 2, truck: 3, dump: 4 };
   }
 
   placeOnMap(object, positionX, positionY) {
@@ -49,11 +50,11 @@ export default class World {
   }
 
   isDriveable(positionX, positionY) {
-    return this.map[positionY][positionX] === this.TILES.road;
+    return this.map[positionY][positionX] === STRING_TILES.road;
   }
 
   getRoadMap() {
-    return this.map.map(e => e.map(o => (o === this.TILES.road ? 0 : 1)));
+    return this.map.map(e => e.map(o => (o === STRING_TILES.road ? 0 : 1)));
   }
 
   // zwraca wszystkie instancje na mapie w formie tablicy intow
@@ -62,19 +63,19 @@ export default class World {
     const newMap = this.map.map(e =>
       e.map(o => {
         if (o instanceof House) {
-          return this.TILES.house;
+          return STRING_TILES.house;
         }
         if (o instanceof Junkyard) {
-          return this.TILES.dump;
+          return STRING_TILES.dump;
         }
         if (o instanceof Road) {
-          return this.TILES.road;
+          return STRING_TILES.road;
         }
         return o;
       }),
     );
     this.trucks.forEach(t => {
-      newMap[t.positionY][t.positionX] = this.TILES.truck;
+      newMap[t.positionY][t.positionX] = STRING_TILES.truck;
     });
     return newMap;
   }
