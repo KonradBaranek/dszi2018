@@ -1,5 +1,6 @@
-import { JUNKYARD, STRING_TILES, ROADS_FACTOR } from '../const';
+import { BIN_TYPES, JUNKYARD, MAX_BIN_SIZE, ROADS_FACTOR, STRING_TILES } from '../const';
 
+import Bin from '../bin';
 import House from '../house';
 import Junkyard from '../junkyard';
 import Road from '../road';
@@ -21,15 +22,36 @@ export default class CreateWorld {
     return this.map;
   }
 
+  bins() {
+    const bins = [];
+
+    bins.push(new Bin(null, null, BIN_TYPES[0], Math.floor(Math.random() * MAX_BIN_SIZE) + 1));
+
+    const types = [...BIN_TYPES];
+    types.shift();
+
+    types.forEach(type => {
+      if (Math.random() < 0.5) {
+        bins.push(new Bin(null, null, type, Math.floor(Math.random() * MAX_BIN_SIZE) + 1));
+      }
+    });
+
+    return bins;
+  }
+
+  house(indexWidth, indexHeight) {
+    return new House(this.bins(), {
+      posX: indexWidth,
+      posY: indexHeight,
+    });
+  }
+
   placeHouses() {
     this.map = this.map.map((row, indexHeight) =>
       row.map(
         (cell, indexWidth) =>
           cell === 1 && this.isThisNextToRoad([indexHeight, indexWidth])
-            ? new House(
-                { frontPhoto: null, contentPhoto: null, type: 'mix', capacity: 2 },
-                { posX: indexWidth, posY: indexHeight },
-              )
+            ? this.house(indexWidth, indexHeight)
             : cell,
       ),
     );

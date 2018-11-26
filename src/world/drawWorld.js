@@ -1,6 +1,5 @@
 import $ from 'jquery';
-
-const TILES = { '0': 'road', '1': 'notRoad', '2': 'house', '3': 'truck', '4': 'dump' };
+import { NUMBER_TILES } from '../const';
 
 export function drawMap(mapObject) {
   $('#map').empty();
@@ -32,12 +31,12 @@ export function drawMap(mapObject) {
         if (matrix[rowIndex][columnIndex - 1] === 0) value += 1000;
         $('#map').append(
           `<img class=${rowIndex} title='${tooltipText}' src="assets/${
-            TILES[cell]
+            NUMBER_TILES[cell]
           }-${value}.png"/>`,
         );
       } else {
         $('#map').append(
-          `<img class=${rowIndex} title='${tooltipText}' src="assets/${TILES[cell]}.png"/>`,
+          `<img class=${rowIndex} title='${tooltipText}' src="assets/${NUMBER_TILES[cell]}.png"/>`,
         );
       }
     });

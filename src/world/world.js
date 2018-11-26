@@ -49,7 +49,7 @@ export default class World {
           return STRING_TILES.house;
         }
         if (o instanceof Junkyard) {
-          return STRING_TILES.dump;
+          return STRING_TILES.junkyard;
         }
         if (o instanceof Road) {
           return STRING_TILES.road;
