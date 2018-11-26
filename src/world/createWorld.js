@@ -1,0 +1,122 @@
+import { BIN_TYPES, JUNKYARD, MAX_BIN_SIZE, ROADS_FACTOR, STRING_TILES } from '../const';
+
+import Bin from '../bin';
+import House from '../house';
+import Junkyard from '../junkyard';
+import Road from '../road';
+
+export default class CreateWorld {
+  constructor(height, width) {
+    this.size = { height, width };
+    this.map = new Array(height).fill(0).map(() => new Array(width).fill(STRING_TILES.notRoad));
+    this.trucks = [];
+  }
+
+  createMap() {
+    this.placeRoads();
+
+    this.placeJunkYards();
+
+    this.placeHouses();
+
+    return this.map;
+  }
+
+  bins() {
+    const bins = [];
+
+    bins.push(new Bin(null, null, BIN_TYPES[0], Math.floor(Math.random() * MAX_BIN_SIZE) + 1));
+
+    const types = [...BIN_TYPES];
+    types.shift();
+
+    types.forEach(type => {
+      if (Math.random() < 0.5) {
+        bins.push(new Bin(null, null, type, Math.floor(Math.random() * MAX_BIN_SIZE) + 1));
+      }
+    });
+
+    return bins;
+  }
+
+  house(indexWidth, indexHeight) {
+    return new House(this.bins(), {
+      posX: indexWidth,
+      posY: indexHeight,
+    });
+  }
+
+  placeHouses() {
+    this.map = this.map.map((row, indexHeight) =>
+      row.map(
+        (cell, indexWidth) =>
+          cell === 1 && this.isThisNextToRoad([indexHeight, indexWidth])
+            ? this.house(indexWidth, indexHeight)
+            : cell,
+      ),
+    );
+  }
+
+  placeJunkYards() {
+    for (let i = 0; i < 4; i += 1) {
+      const positionHeight = Math.floor(Math.random() * this.size.height);
+      const positionWidth = Math.floor(Math.random() * this.size.width);
+      const junkyards = JUNKYARD;
+      if (this.isThisNextToRoad([positionHeight, positionWidth])) {
+        this.map[positionHeight][positionWidth] = new Junkyard(...junkyards.pop());
+      } else {
+        i -= 1;
+      }
+    }
+  }
+
+  placeRoads() {
+    let arrayOfNumbers = [];
+    for (let i = 0; i < this.size.height / ROADS_FACTOR; i += 1) {
+      const position = Math.floor(Math.random() * this.size.height);
+      const isFine = arrayOfNumbers.every(cell => Math.abs(cell - position) > 2);
+      if (isFine) {
+        arrayOfNumbers.push(position);
+        this.map[position] = new Array(this.size.width).fill(new Road());
+      } else {
+        i -= 1;
+      }
+    }
+    arrayOfNumbers = [];
+    for (let i = 0; i < this.size.width / ROADS_FACTOR; i += 1) {
+      const position = Math.floor(Math.random() * this.size.width);
+      const isFine = arrayOfNumbers.every(cell => Math.abs(cell - position) > 2);
+      if (isFine) {
+        arrayOfNumbers.push(position);
+        this.map.map(cell => (cell[position] = new Road())); // eslint-disable-line
+      } else {
+        i -= 1;
+      }
+    }
+  }
+
+  isThisNextToRoad(position) {
+    if (this.map[position[0]][position[1]] instanceof Road) {
+      return false;
+    }
+    if (
+      this.map[position[0]][position[1] - 1] &&
+      this.map[position[0]][position[1] - 1] instanceof Road
+    ) {
+      return true;
+    }
+    if (
+      this.map[position[0]][position[1] + 1] &&
+      this.map[position[0]][position[1] + 1] instanceof Road
+    ) {
+      return true;
+    }
+    if (this.map[position[0] - 1] && this.map[position[0] - 1][position[1]] instanceof Road) {
+      return true;
+    }
+    if (this.map[position[0] + 1] && this.map[position[0] + 1][position[1]] instanceof Road) {
+      return true;
+    }
+    return false;
+  }
+}
