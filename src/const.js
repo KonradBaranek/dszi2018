@@ -13,3 +13,10 @@ export const ROADS_FACTOR = 4; // cannot be smaller than 4 (will freeze brovser)
 
 export const MAX_BIN_SIZE = 4;
 export const BIN_TYPES = ['mix', 'plastic', 'paper', 'metal'];
+
+export const DIRECTIONS = {
+  up: 0,
+  right: 1,
+  down: 2,
+  left: 3,
+};

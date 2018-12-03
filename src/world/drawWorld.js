@@ -1,5 +1,6 @@
+import { NUMBER_TILES, STRING_TILES } from '../const';
+
 import $ from 'jquery';
-import { NUMBER_TILES } from '../const';
 
 export function drawMap(mapObject) {
   $('#map').empty();
@@ -23,16 +24,40 @@ export function drawMap(mapObject) {
           .replace(/:/g, ': ');
       }
 
-      if (cell === 0) {
+      if (cell === STRING_TILES.road) {
         let value = 0;
-        if (matrix[rowIndex - 1] && matrix[rowIndex - 1][columnIndex] === 0) value += 1;
-        if (matrix[rowIndex][columnIndex + 1] === 0) value += 10;
-        if (matrix[rowIndex + 1] && matrix[rowIndex + 1][columnIndex] === 0) value += 100;
-        if (matrix[rowIndex][columnIndex - 1] === 0) value += 1000;
+        if (
+          matrix[rowIndex - 1] &&
+          (matrix[rowIndex - 1][columnIndex] === STRING_TILES.road ||
+            matrix[rowIndex - 1][columnIndex] === STRING_TILES.truck)
+        )
+          value += 1;
+        if (
+          matrix[rowIndex][columnIndex + 1] === STRING_TILES.road ||
+          matrix[rowIndex][columnIndex + 1] === STRING_TILES.truck
+        )
+          value += 10;
+        if (
+          matrix[rowIndex + 1] &&
+          (matrix[rowIndex + 1][columnIndex] === STRING_TILES.road ||
+            matrix[rowIndex + 1][columnIndex] === STRING_TILES.truck)
+        )
+          value += 100;
+        if (
+          matrix[rowIndex][columnIndex - 1] === STRING_TILES.road ||
+          matrix[rowIndex][columnIndex - 1] === STRING_TILES.truck
+        )
+          value += 1000;
         $('#map').append(
           `<img class=${rowIndex} title='${tooltipText}' src="assets/${
             NUMBER_TILES[cell]
           }-${value}.png"/>`,
+        );
+      } else if (cell === STRING_TILES.truck) {
+        $('#map').append(
+          `<img class=${rowIndex} title='${tooltipText}' src="assets/${NUMBER_TILES[cell]}-${
+            objectMatrix[rowIndex][columnIndex].direction
+          }.png"/>`,
         );
       } else {
         $('#map').append(
