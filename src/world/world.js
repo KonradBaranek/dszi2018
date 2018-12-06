@@ -39,7 +39,7 @@ export default class World {
   }
 
   getRoadMap() {
-    return this.map.map(e => e.map(o => (o === STRING_TILES.road ? 0 : 1)));
+    return this.map.map(e => e.map(o => (o === STRING_TILES.road ? STRING_TILES.road : 1)));
   }
 
   getWholeMap() {

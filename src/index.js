@@ -1,9 +1,19 @@
+import AStar from './A-star/aStar';
+import State from './A-star/state';
 import World from './world/world';
 import { drawMap } from './world/drawWorld';
 
 const z = new World(10, 10);
 const t = z.addTruck(0, 4);
 drawMap(z);
+
+console.log(
+  new AStar(
+    [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
+    new State(1, 1, 1),
+    new State(4, 1, 1),
+  ).givePath(),
+);
 
 setTimeout(() => {
   t.move();
