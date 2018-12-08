@@ -1,4 +1,3 @@
-import Action from './action';
 import State from './state';
 
 export default class Node {

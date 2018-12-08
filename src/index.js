@@ -1,101 +1,40 @@
+import { ACTIONS } from './const';
 import AStar from './A-star/aStar';
 import State from './A-star/state';
 import World from './world/world';
 import { drawMap } from './world/drawWorld';
 
-const z = new World(10, 10);
-const t = z.addTruck(0, 4);
-drawMap(z);
+const world = new World(10, 10);
+const startPos = world.findPlaceOnRoad(0, 0, 5, 5);
+const goalPos = world.findPlaceOnRoad(5, 5, 10, 10);
+const t = world.addTruck(startPos.x, startPos.y);
+drawMap(world);
+if (t) {
+  drawMap(world);
 
-console.log(
-  new AStar(
-    [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
-    new State(1, 1, 1),
-    new State(4, 1, 1),
-  ).givePath(),
-);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 1000);
-
-setTimeout(() => {
-  t.turnRight();
-  drawMap(z);
-}, 1500);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 2000);
-
-setTimeout(() => {
-  t.turnRight();
-  drawMap(z);
-}, 2500);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 3000);
-
-setTimeout(() => {
-  t.turnRight();
-  drawMap(z);
-}, 3500);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 4000);
-
-setTimeout(() => {
-  t.turnLeft();
-  drawMap(z);
-}, 4500);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 5000);
-
-setTimeout(() => {
-  t.turnLeft();
-  drawMap(z);
-}, 5500);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 6000);
-
-setTimeout(() => {
-  t.turnLeft();
-  drawMap(z);
-}, 6500);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 7000);
-
-setTimeout(() => {
-  t.turnLeft();
-  drawMap(z);
-}, 7500);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 8000);
-
-setTimeout(() => {
-  t.turnLeft();
-  drawMap(z);
-}, 8500);
-
-setTimeout(() => {
-  t.move();
-  drawMap(z);
-}, 9000);
+  const actions = new AStar(
+    world.getRoadMap(),
+    new State(t.positionX, t.positionY, 0),
+    new State(goalPos.x, goalPos.y, 1),
+  ).givePath();
+  const interval = setInterval(() => {
+    if (!actions.length) {
+      clearInterval(interval);
+    } else {
+      switch (actions.shift()) {
+        case ACTIONS.turnLeft:
+          t.turnLeft();
+          break;
+        case ACTIONS.turnRight:
+          t.turnRight();
+          break;
+        case ACTIONS.move:
+          t.move();
+          break;
+        default:
+          break;
+      }
+    }
+    drawMap(world);
+  }, 1000);
+}

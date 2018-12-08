@@ -6,10 +6,6 @@ export default class State {
   }
 
   static compare(state1, state2) {
-    return (
-      state1.positionX === state2.positionX &&
-      state1.positionY === state2.positionY &&
-      state1.direction === state2.direction
-    );
+    return state1.positionX === state2.positionX && state1.positionY === state2.positionY;
   }
 }

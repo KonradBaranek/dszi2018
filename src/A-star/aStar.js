@@ -10,20 +10,19 @@ export default class AStar {
     this.goalState = goalState;
     this.fringe = [];
     this.explored = [];
-    console.log('initialized', this);
+    console.log('A-star', this);
   }
 
   givePath() {
     this.fringe.push(new Node(this.startState, null, null));
-    console.log('fringe', this.fringe);
-    for(let i=0 ; i<50; i++) {
+    while (true) {
       if (!this.fringe.length) {
         return null;
       }
       const elem = this.fringe.shift();
 
       if (this.goalTest(elem.state)) {
-        return this.getPathFromParents(elem);
+        return this.getActionsFromParents(elem);
       }
       this.fringe.splice(this.fringe.indexOf(elem), 1);
       this.explored.push(elem);
@@ -61,7 +60,7 @@ export default class AStar {
             : null;
         case DIRECTIONS.right:
           return (this.map[state.positionY] || false)[state.positionX + 1] === STRING_TILES.road
-            ? new State(state.positionX + 1, state.positionY - 1, DIRECTIONS.right)
+            ? new State(state.positionX + 1, state.positionY, DIRECTIONS.right)
             : null;
         default:
           return null;
@@ -82,7 +81,6 @@ export default class AStar {
   }
 
   f(x, goal) {
-    console.log('distance');
     return this.manhattanDistance(x.state, goal) + x.action.getCost();
   }
 
@@ -92,15 +90,31 @@ export default class AStar {
     );
   }
 
-  getPathFromParents(node){
+  getPathFromParents(node) {
     let x = node;
-    let list = [];
-    while(true){
-      if(!x.parent){
+    const list = [];
+    while (true) {
+      if (!x.parent) {
         list.push(x.state);
-        return list;
+        return list.reverse();
       }
       list.push(x.state);
+      x = x.parent;
+    }
+  }
+
+  getActionsFromParents(node) {
+    let x = node;
+    const list = [];
+    while (true) {
+      if (!x.parent) {
+        list.push((x.action || false).actions);
+        return list
+          .reverse()
+          .flat()
+          .filter(e => e !== undefined);
+      }
+      list.push((x.action || false).actions);
       x = x.parent;
     }
   }
