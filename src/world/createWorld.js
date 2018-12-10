@@ -1,4 +1,11 @@
-import { BIN_TYPES, JUNKYARD, MAX_BIN_SIZE, ROADS_FACTOR, STRING_TILES } from '../const';
+import {
+  BIN_TYPES,
+  JUNKYARD,
+  MAX_BIN_SIZE,
+  ROADS_FACTOR,
+  STRING_TILES,
+  ROAD_WEIGHT,
+} from '../const';
 
 import Bin from '../bin';
 import House from '../house';
@@ -77,7 +84,9 @@ export default class CreateWorld {
       const isFine = arrayOfNumbers.every(cell => Math.abs(cell - position) > 2);
       if (isFine) {
         arrayOfNumbers.push(position);
-        this.map[position] = new Array(this.size.width).fill(new Road());
+        this.map[position] = new Array(this.size.width).fill(
+          new Road(Math.floor(Math.random() * ROAD_WEIGHT)),
+        );
       } else {
         i -= 1;
       }
@@ -88,7 +97,7 @@ export default class CreateWorld {
       const isFine = arrayOfNumbers.every(cell => Math.abs(cell - position) > 2);
       if (isFine) {
         arrayOfNumbers.push(position);
-        this.map.map(cell => (cell[position] = new Road())); // eslint-disable-line
+        this.map.map(cell => (cell[position] = new Road(Math.floor(Math.random() * ROAD_WEIGHT)))); // eslint-disable-line
       } else {
         i -= 1;
       }

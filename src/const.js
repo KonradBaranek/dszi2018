@@ -7,6 +7,8 @@ export const NUMBER_TILES = {
   '4': 'junkyard',
 };
 
+export const ROAD_WEIGHT = 5;
+
 export const ACTIONS = { turnLeft: 0, turnRight: 1, move: 2 };
 
 export const JUNKYARD = [['mix', 2000], ['plastic', 2000], ['paper', 2000], ['metal', 2000]];
