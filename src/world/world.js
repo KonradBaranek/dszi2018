@@ -4,6 +4,7 @@ import Junkyard from '../junkyard';
 import Road from '../road';
 import { STRING_TILES } from '../const';
 import Truck from '../truck';
+import { runInThisContext } from 'vm';
 
 export default class World {
   constructor(height, width) {
@@ -30,6 +31,18 @@ export default class World {
     return t;
   }
 
+  findPlaceOnRoad(fromX, fromY, toX, toY) {
+    const roadMap = this.getRoadMap();
+    for (let y = fromY; y < toY; y++) {
+      for (let x = fromX; x < toX; x++) {
+        if (roadMap[y][x] === 0) {
+          return { x, y };
+        }
+      }
+    }
+    return null;
+  }
+
   getObject(positionX, positionY) {
     return this.map[positionY][positionX];
   }
@@ -39,7 +52,9 @@ export default class World {
   }
 
   getRoadMap() {
-    return this.map.map(e => e.map(o => (o === STRING_TILES.road ? 0 : 1)));
+    return this.getWholeMap().map(e =>
+      e.map(o => (o === STRING_TILES.road ? STRING_TILES.road : STRING_TILES.notRoad)),
+    );
   }
 
   getWholeMap() {
