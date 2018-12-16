@@ -27,9 +27,8 @@ export function drawMap(mapObject) {
       if (cell === STRING_TILES.road) {
         let value = 0;
         if (
-          matrix[rowIndex - 1] &&
-          (matrix[rowIndex - 1][columnIndex] === STRING_TILES.road ||
-            matrix[rowIndex - 1][columnIndex] === STRING_TILES.truck)
+          (matrix[rowIndex - 1] || false)[columnIndex] === STRING_TILES.road ||
+          (matrix[rowIndex - 1] || false)[columnIndex] === STRING_TILES.truck
         )
           value += 1;
         if (
@@ -38,9 +37,8 @@ export function drawMap(mapObject) {
         )
           value += 10;
         if (
-          matrix[rowIndex + 1] &&
-          (matrix[rowIndex + 1][columnIndex] === STRING_TILES.road ||
-            matrix[rowIndex + 1][columnIndex] === STRING_TILES.truck)
+          (matrix[rowIndex + 1] || false)[columnIndex] === STRING_TILES.road ||
+          (matrix[rowIndex + 1] || false)[columnIndex] === STRING_TILES.truck
         )
           value += 100;
         if (
@@ -48,10 +46,11 @@ export function drawMap(mapObject) {
           matrix[rowIndex][columnIndex - 1] === STRING_TILES.truck
         )
           value += 1000;
+
         $('#map').append(
           `<img class=${rowIndex} title='${tooltipText}' src="assets/${
             NUMBER_TILES[cell]
-          }-${value}.png"/>`,
+          }-${value}-${objectMatrix[rowIndex][columnIndex].weight}.png"/>`,
         );
       } else if (cell === STRING_TILES.truck) {
         $('#map').append(
