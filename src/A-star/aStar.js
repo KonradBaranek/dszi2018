@@ -5,7 +5,8 @@ import State from './state';
 
 export default class AStar {
   constructor(map, startState, goalState) {
-    this.map = map;
+    this.objectMap = map.getMap();
+    this.map = map.getRoadMap();
     this.startState = startState;
     this.goalState = goalState;
     this.fringe = [];
@@ -14,19 +15,21 @@ export default class AStar {
   }
 
   givePath() {
-    this.fringe.push(new Node(this.startState, null, null));
+
+    this.fringe.push(new Node(this.startState, null, null,this.manhattanDistance(this.startState,this.goalState)));
     while (true) {
       if (!this.fringe.length) {
         return null;
       }
+      this.fringe.sort((a, b) => a.cost - b.cost);
       const elem = this.fringe.shift();
 
       if (this.goalTest(elem.state)) {
         return this.getActionsFromParents(elem);
       }
-      this.fringe.splice(this.fringe.indexOf(elem), 1);
+      
       this.explored.push(elem);
-
+      //console.log('states',this.succ(elem.state))
       this.succ(elem.state).forEach(state => {
         const x = new Node(state, elem, new Action(elem.state, state));
         x.cost = this.f(x, this.goalState);
@@ -34,32 +37,35 @@ export default class AStar {
         const elemExpl = this.explored.findIndex(e => Node.compare(e, x));
         if (elemFrin === -1 && elemExpl === -1) {
           this.fringe.push(x);
-          this.fringe.sort((a, b) => a.cost - b.cost);
-        } else if (elemFrin !== -1 && elemFrin.cost > x.cost) {
-          this.fringe = this.fringe.splice(elemFrin, 1, x);
-          this.fringe.sort((a, b) => a.cost - b.cost);
+        } else if (elemFrin !== -1 && this.fringe[elemFrin].cost > x.cost) {
+          this.fringe.splice(elemFrin, 1, x);
         }
+  
       });
     }
+  }
+
+  isInExplored(positionX, positionY){
+    return this.explored.find(e=>e.state.positionX === positionX && e.state.positionY === positionY) || this.fringe.find(e=>e.state.positionX === positionX && e.state.positionY === positionY);
   }
 
   succ(state) {
     const give = direction => {
       switch (direction) {
         case DIRECTIONS.up:
-          return (this.map[state.positionY - 1] || false)[state.positionX] === STRING_TILES.road
+          return (this.map[state.positionY - 1] || false)[state.positionX] === STRING_TILES.road && !this.isInExplored(state.positionX, state.positionY - 1)
             ? new State(state.positionX, state.positionY - 1, DIRECTIONS.up)
             : null;
         case DIRECTIONS.down:
-          return (this.map[state.positionY + 1] || false)[state.positionX] === STRING_TILES.road
+          return (this.map[state.positionY + 1] || false)[state.positionX] === STRING_TILES.road && !this.isInExplored(state.positionX, state.positionY + 1)
             ? new State(state.positionX, state.positionY + 1, DIRECTIONS.down)
             : null;
         case DIRECTIONS.left:
-          return (this.map[state.positionY] || false)[state.positionX - 1] === STRING_TILES.road
+          return (this.map[state.positionY] || false)[state.positionX - 1] === STRING_TILES.road && !this.isInExplored(state.positionX - 1, state.positionY)
             ? new State(state.positionX - 1, state.positionY, DIRECTIONS.left)
             : null;
         case DIRECTIONS.right:
-          return (this.map[state.positionY] || false)[state.positionX + 1] === STRING_TILES.road
+          return (this.map[state.positionY] || false)[state.positionX + 1] === STRING_TILES.road && !this.isInExplored(state.positionX + 1, state.positionY)
             ? new State(state.positionX + 1, state.positionY, DIRECTIONS.right)
             : null;
         default:
@@ -81,7 +87,8 @@ export default class AStar {
   }
 
   f(x, goal) {
-    return this.manhattanDistance(x.state, goal) + x.action.getCost();
+    //console.log(x,this.manhattanDistance(x.state, goal) + x.action.getCost() + x.parent.cost)
+    return this.manhattanDistance(x.state, goal) + x.action.getCost() + x.parent.cost + 5*this.objectMap[x.state.positionY][x.state.positionX].weight;
   }
 
   manhattanDistance(state1, state2) {

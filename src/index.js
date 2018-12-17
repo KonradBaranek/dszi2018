@@ -10,10 +10,8 @@ const goalPos = world.findPlaceOnRoad(5, 5, 10, 10);
 const t = world.addTruck(startPos.x, startPos.y);
 drawMap(world);
 if (t) {
-  drawMap(world);
-
   const actions = new AStar(
-    world.getRoadMap(),
+    world,
     new State(t.positionX, t.positionY, 0),
     new State(goalPos.x, goalPos.y, 1),
   ).givePath();

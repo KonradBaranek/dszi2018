@@ -7,7 +7,7 @@ export const NUMBER_TILES = {
   '4': 'junkyard',
 };
 
-export const ROAD_WEIGHT = 5;
+export const ROAD_WEIGHT = 4;
 
 export const ACTIONS = { turnLeft: 0, turnRight: 1, move: 2 };
 
