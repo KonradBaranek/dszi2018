@@ -1,0 +1,17 @@
+{
+  "name": "cnn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "model": "serve ./cnn-model"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^0.1.21",
+    "canvas": "^2.2.0",
+    "serve": "^10.1.1",
+    "shuffle-seed": "^1.1.6"
+  }
+}

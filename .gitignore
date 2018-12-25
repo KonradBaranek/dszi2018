@@ -1,2 +1,6 @@
 /dist/backend/*
 /node_modules
+
+/cnn/binImages
+/cnn/node_modules
+public/trash/*

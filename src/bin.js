@@ -1,8 +1,7 @@
 export default class Bin {
-  constructor(frontPhoto, contentPhoto, contentType, capacity, maxCapacity) {
+  constructor(contentType, photo, capacity, maxCapacity) {
     this.contentType = contentType;
-    this.frontPhoto = frontPhoto;
-    this.contentPhoto = contentPhoto;
+    this.photo = photo;
     this.capacity = capacity;
     this.maxCapacity = maxCapacity;
   }
