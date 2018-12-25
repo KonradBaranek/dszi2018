@@ -1,5 +1,6 @@
 import { ACTIONS } from './const';
 import AStar from './A-star/aStar';
+import BinTypeReco from './binTypeReco';
 import State from './A-star/state';
 import World from './world/world';
 import { drawMap } from './world/drawWorld';
@@ -36,3 +37,9 @@ if (t) {
     drawMap(world);
   }, 1000);
 }
+
+const binTypeReco = new BinTypeReco();
+
+setTimeout(() => {
+  binTypeReco.predictPhoto('./trash/bio/papier.jpg', 'papier');
+}, 1000);

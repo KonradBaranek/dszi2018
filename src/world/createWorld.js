@@ -3,8 +3,9 @@ import {
   JUNKYARD,
   MAX_BIN_SIZE,
   ROADS_FACTOR,
-  STRING_TILES,
   ROAD_WEIGHT,
+  STRING_TILES,
+  TRASH_IMAGES,
 } from '../const';
 
 import Bin from '../bin';
@@ -31,15 +32,22 @@ export default class CreateWorld {
 
   bins() {
     const bins = [];
+    const mixFoto = TRASH_IMAGES.mix[Math.floor(Math.random() * TRASH_IMAGES.mix.length)];
 
-    bins.push(new Bin(null, null, BIN_TYPES[0], Math.floor(Math.random() * MAX_BIN_SIZE) + 1));
+    bins.push(
+      new Bin(BIN_TYPES[0], `trash/mix/${mixFoto}`, Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
+    );
 
     const types = [...BIN_TYPES];
     types.shift();
 
     types.forEach(type => {
-      if (Math.random() < 0.5) {
-        bins.push(new Bin(null, null, type, Math.floor(Math.random() * MAX_BIN_SIZE) + 1));
+      if (Math.random() < 0.4) {
+        const foto = TRASH_IMAGES[type][Math.floor(Math.random() * TRASH_IMAGES[type].length)];
+        console.log(foto);
+        bins.push(
+          new Bin(type, `trash/${type}/${foto}`, Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
+        );
       }
     });
 
@@ -65,7 +73,7 @@ export default class CreateWorld {
   }
 
   placeJunkYards() {
-    for (let i = 0; i < 4; i += 1) {
+    for (let i = 0; i < 5; i += 1) {
       const positionHeight = Math.floor(Math.random() * this.size.height);
       const positionWidth = Math.floor(Math.random() * this.size.width);
       const junkyards = JUNKYARD;
