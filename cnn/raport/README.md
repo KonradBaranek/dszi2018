@@ -31,3 +31,11 @@ Przygotowanie zdjęć:
 ![ReLU - Rectified Linear Units](./ReLU.png)
 
 ![One Layer Example](./Layer.png)
+
+![Back Propagation Starter Example](./backPropagationStarter.png)
+
+![Back Propagation Example](./backPropagation.png)
+
+
+## Stochastic gradient descent
+![Back Propagation Descent Example](./backPropagationDescent.png)
