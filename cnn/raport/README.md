@@ -32,6 +32,8 @@ Przygotowanie zdjęć:
 
 ![One Layer Example](./Layer.png)
 
+
+## Back Propagation
 ![Back Propagation Starter Example](./backPropagationStarter.png)
 
 ![Back Propagation Example](./backPropagation.png)
