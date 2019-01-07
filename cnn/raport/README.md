@@ -38,6 +38,9 @@ Przygotowanie zdjęć:
 
 ![Back Propagation Example](./backPropagation.png)
 
+![Back Propagation Learinng](./backPropagationLearning.png)
+
+
 
 ## Stochastic gradient descent
 ![Back Propagation Descent Example](./backPropagationDescent.png)
