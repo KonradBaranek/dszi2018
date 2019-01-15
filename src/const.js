@@ -1,6 +1,8 @@
+import imagesInTrash from './imagesInTrash.json';
 import imagesJSON from './images.json';
 
 export const TRASH_IMAGES = imagesJSON;
+export const JUNK_IMAGES = imagesInTrash;
 
 export const TRASH_PREDICTION = {
   papier: [1, 0, 0, 0, 0],
