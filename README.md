@@ -10,4 +10,5 @@ Jak odpalić model z predykcją koszy
 5. 
 
 
-W razie problemów - dodatkowe pliki są za duże, żeby je wstawić
+Wygenerowany model jest tutaj:https://l.messenger.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1AkoAKa6ygQuxG5Eas48bfxEsOcfN24hr&h=AT2rwXWfBxDFUtu4iv52pCJtvXVw4rDMwM6k7W9UeSNTg_lpcBqnOjSxnjp5GqY4LYDYyzNNhVf7zpbe0k9hLo0l4uKrQCfJ3fhJ-D-ywPuWAp6HUx46PqL83ybL-A
+Należy je umieścić w cnn/cnn-model
