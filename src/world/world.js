@@ -25,6 +25,23 @@ export default class World {
     return null;
   }
 
+  loadTrucks(){
+    this.trucks.forEach(truck => {
+      if(this.map[truck.positionY][truck.positionX+1] && (this.map[truck.positionY][truck.positionX+1] instanceof House || this.map[truck.positionY][truck.positionX+1] instanceof Junkyard)){
+        this.map[truck.positionY][truck.positionX+1].giveTrash(truck);
+      }
+      if(this.map[truck.positionY][truck.positionX-1] && (this.map[truck.positionY][truck.positionX-1] instanceof House || this.map[truck.positionY][truck.positionX-1] instanceof Junkyard)){
+        this.map[truck.positionY][truck.positionX-1].giveTrash(truck);
+      }
+      if(this.map[truck.positionY+1] && (this.map[truck.positionY+1][truck.positionX] instanceof House || this.map[truck.positionY+1][truck.positionX] instanceof Junkyard)){
+        this.map[truck.positionY+1][truck.positionX].giveTrash(truck);
+      }
+      if(this.map[truck.positionY-1] && (this.map[truck.positionY-1][truck.positionX] instanceof House || this.map[truck.positionY-1][truck.positionX] instanceof Junkyard)){
+        this.map[truck.positionY-1][truck.positionX].giveTrash(truck);
+      }
+    })
+  }
+
   addTruck(positionX, positionY) {
     const t = new Truck(positionX, positionY, 100);
     this.trucks.push(t);

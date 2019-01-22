@@ -65,7 +65,7 @@ export default class CreateWorld {
     this.map = this.map.map((row, indexHeight) =>
       row.map(
         (cell, indexWidth) =>
-          cell === 1 && this.isThisNextToRoad([indexHeight, indexWidth])
+          cell === 1 && Math.random() < 0.3 && this.isThisNextToRoad([indexHeight, indexWidth])
             ? this.house(indexWidth, indexHeight)
             : cell,
       ),
@@ -73,12 +73,11 @@ export default class CreateWorld {
   }
 
   placeJunkYards() {
-    for (let i = 0; i < 5; i += 1) {
+    for (let i = 0; i < 1; i += 1) {
       const positionHeight = Math.floor(Math.random() * this.size.height);
       const positionWidth = Math.floor(Math.random() * this.size.width);
-      const junkyards = JUNKYARD;
       if (this.isThisNextToRoad([positionHeight, positionWidth])) {
-        this.map[positionHeight][positionWidth] = new Junkyard(...junkyards.pop());
+        this.map[positionHeight][positionWidth] = new Junkyard(JUNKYARD,{posY: positionHeight, posX: positionWidth});
       } else {
         i -= 1;
       }

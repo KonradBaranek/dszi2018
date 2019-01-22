@@ -58,10 +58,10 @@ export default class BinTypeReco {
 
   isCorrectBin(contentType, predictedType) {
     if (contentType === predictedType) {
-      console.log('Correct bin.');
+      console.log(`Correct bin. ${predictedType}`);
       return true;
     }
-    console.log('Incorrect bin.');
+    console.log(`Incorrect bin. It's ${predictedType} not ${contentType}`);
     return false;
   }
 }
