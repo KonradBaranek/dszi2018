@@ -23,18 +23,18 @@ export const ROAD_WEIGHT = 4;
 
 export const ACTIONS = { turnLeft: 0, turnRight: 1, move: 2 };
 
-export const JUNKYARD = [
-  ['mix', 2000],
-  ['plastikAlm', 2000],
-  ['papier', 2000],
-  ['szklo', 2000],
-  ['bio', 2000],
-];
+export const JUNKYARD = {
+  mix: 0,
+  plasticAlm: 0,
+  papier: 0,
+  szklo: 0,
+  bio: 0,
+};
 
 export const ROADS_FACTOR = 4; // cannot be smaller than 4 (will freeze brovser)
 
 export const MAX_BIN_SIZE = 4;
-export const BIN_TYPES = ['mix', 'plastikAlm', 'papier', 'szklo', 'bio'];
+export const BIN_TYPES = ['mix', 'plasticAlm', 'papier', 'szklo', 'bio'];
 
 export const DIRECTIONS = {
   up: 0,

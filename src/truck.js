@@ -5,9 +5,12 @@ export default class Truck {
     this.positionX = positionX;
     this.positionY = positionY;
     this.maxCapacity = maxCapacity;
-    this.capacity = 0;
-    this.type = 'mix';
+    this.capacity = {};
     this.direction = DIRECTIONS.up;
+  }
+
+  createClone(truck){
+    return new Truck(truck.positionX,truck.positionY,truck.maxCapacity);
   }
 
   turnLeft() {

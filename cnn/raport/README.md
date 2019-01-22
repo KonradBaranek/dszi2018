@@ -3,7 +3,7 @@ labelki:
 ```json
 {
   "papier": [1, 0, 0, 0, 0],  - niebieski
-  "plastikAlm": [0, 1, 0, 0, 0], - żółte
+  "plasticAlm": [0, 1, 0, 0, 0], - żółte
   "szkło": [0, 0, 1, 0, 0], - zielone
   "bio": [0, 0, 0, 1, 0], - brązowe
   "mix": [0, 0, 0, 0, 1], - czarne
