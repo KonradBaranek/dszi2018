@@ -14,7 +14,9 @@ export default class AStar {
     console.log('A-star', this);
   }
 
-  givePath() {
+  givePath(asPath) {
+    this.fringe = [];
+    this.explored = [];
 
     this.fringe.push(new Node(this.startState, null, null,this.manhattanDistance(this.startState,this.goalState)));
     while (true) {
@@ -25,7 +27,10 @@ export default class AStar {
       const elem = this.fringe.shift();
 
       if (this.goalTest(elem.state)) {
-        return this.getActionsFromParents(elem);
+        
+        let ret = asPath ? this.getPathFromParents(elem) :this.getActionsFromParents(elem);
+        //console.log('ret', ret);
+        return ret;
       }
       
       this.explored.push(elem);

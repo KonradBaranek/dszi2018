@@ -2,7 +2,7 @@ import * as tf from '@tensorflow/tfjs';
 
 import { TRASH_PREDICTION } from './const';
 
-export default class trashTypeReco {
+export default class TrashTypeReco {
   constructor() {
     this.loadModel();
   }
@@ -59,10 +59,10 @@ export default class trashTypeReco {
 
   isCorrectBin(contentType, predictedType) {
     if (contentType === predictedType) {
-      console.log('Correct trash.');
+      console.log('Correct type of trash.');
       return true;
     }
-    console.log('Incorrect trash.');
+    console.log('Incorrect type of trash.');
     return false;
   }
 }

@@ -1,6 +1,7 @@
 import {
   BIN_TYPES,
   JUNKYARD,
+  JUNK_IMAGES,
   MAX_BIN_SIZE,
   ROADS_FACTOR,
   ROAD_WEIGHT,
@@ -33,9 +34,10 @@ export default class CreateWorld {
   bins() {
     const bins = [];
     const mixFoto = TRASH_IMAGES.mix[Math.floor(Math.random() * TRASH_IMAGES.mix.length)];
+    const mixFotoTrash = JUNK_IMAGES.mix[Math.floor(Math.random() * JUNK_IMAGES.mix.length)];
 
     bins.push(
-      new Bin(BIN_TYPES[0], `trash/mix/${mixFoto}`, Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
+      new Bin(BIN_TYPES[0], `trash/mix/${mixFoto}`,`insideBin/mix/${mixFotoTrash}` ,Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
     );
 
     const types = [...BIN_TYPES];
@@ -44,9 +46,11 @@ export default class CreateWorld {
     types.forEach(type => {
       if (Math.random() < 0.4) {
         const foto = TRASH_IMAGES[type][Math.floor(Math.random() * TRASH_IMAGES[type].length)];
+        const trashPhoto = JUNK_IMAGES[type][Math.floor(Math.random() * JUNK_IMAGES[type].length)];
         console.log(foto);
+        console.log(trashPhoto);
         bins.push(
-          new Bin(type, `trash/${type}/${foto}`, Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
+          new Bin(type, `trash/${type}/${foto}`, `insideBin/${type}/${trashPhoto}`,Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
         );
       }
     });
@@ -65,7 +69,7 @@ export default class CreateWorld {
     this.map = this.map.map((row, indexHeight) =>
       row.map(
         (cell, indexWidth) =>
-          cell === 1 && this.isThisNextToRoad([indexHeight, indexWidth])
+          cell === 1 && Math.random() < 0.3 && this.isThisNextToRoad([indexHeight, indexWidth])
             ? this.house(indexWidth, indexHeight)
             : cell,
       ),
@@ -73,12 +77,11 @@ export default class CreateWorld {
   }
 
   placeJunkYards() {
-    for (let i = 0; i < 5; i += 1) {
+    for (let i = 0; i < 1; i += 1) {
       const positionHeight = Math.floor(Math.random() * this.size.height);
       const positionWidth = Math.floor(Math.random() * this.size.width);
-      const junkyards = JUNKYARD;
       if (this.isThisNextToRoad([positionHeight, positionWidth])) {
-        this.map[positionHeight][positionWidth] = new Junkyard(...junkyards.pop());
+        this.map[positionHeight][positionWidth] = new Junkyard(JUNKYARD,{posY: positionHeight, posX: positionWidth});
       } else {
         i -= 1;
       }
