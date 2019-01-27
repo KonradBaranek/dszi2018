@@ -1,6 +1,7 @@
 import Bin from './bin';
 import BinTypeReco from './binTypeReco';
 import TrashTypeReco from './trashTypeReco';
+
 export default class House {
   constructor(bins, adress) {
     this.bins = bins;
@@ -28,7 +29,7 @@ export default class House {
   giveTrash(t) {
     this.bins.map(bin => {
       const predictBinType = this.binTypeReco.predictPhoto(bin.photo, bin.contentType);
-      const predictTrashType = this.trashTypeReco.predictPhoto(bin.trashPhoto,bin.contentType);
+      const predictTrashType = this.trashTypeReco.predictPhoto(bin.trashPhoto, bin.contentType);
 
       if (predictBinType && predictTrashType) {
         t.capacity[bin.contentType] = t.capacity[bin.contentType]

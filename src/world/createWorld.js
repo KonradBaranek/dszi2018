@@ -35,9 +35,13 @@ export default class CreateWorld {
     const bins = [];
     const mixFoto = TRASH_IMAGES.mix[Math.floor(Math.random() * TRASH_IMAGES.mix.length)];
     const mixFotoTrash = JUNK_IMAGES.mix[Math.floor(Math.random() * JUNK_IMAGES.mix.length)];
+    console.log(TRASH_IMAGES.mix.length);
+    console.log(JUNK_IMAGES.mix.length);
+    console.log(Math.random() * JUNK_IMAGES.mix.length);
+    console.log(Math.random() * TRASH_IMAGES.mix.length);
 
     bins.push(
-      new Bin(BIN_TYPES[0], `trash/mix/${mixFoto}`,`insideBin/mix/${mixFotoTrash}` ,Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
+      new Bin( BIN_TYPES[0], `trash/mix/${mixFoto}` , `insideBin/mix/${mixFotoTrash}` , Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
     );
 
     const types = [...BIN_TYPES];

@@ -59,10 +59,10 @@ export default class TrashTypeReco {
 
   isCorrectBin(contentType, predictedType) {
     if (contentType === predictedType) {
-      console.log('Correct type of trash.');
+      console.log(`Correct type of trash. ${predictedType}`);
       return true;
     }
-    console.log('Incorrect type of trash.');
+    console.log(`Incorrect type of trash. It's ${predictedType} not ${contentType}`);
     return false;
   }
 }

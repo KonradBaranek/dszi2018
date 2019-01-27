@@ -6,14 +6,14 @@ function loadImagesNames(path) {
 
 const papier = loadImagesNames('../public/insideBin/papier');
 const szklo = loadImagesNames('../public/insideBin/szklo');
-const plastikAlm = loadImagesNames('../public/insideBin/plastikAlm');
+const plasticAlm = loadImagesNames('../public/insideBin/plastikAlm');
 const bio = loadImagesNames('../public/insideBin/bio');
 const mix = loadImagesNames('../public/insideBin/mix');
 
 const obj = {
   papier,
   szklo,
-  plastikAlm,
+  plasticAlm,
   bio,
   mix,
 };
