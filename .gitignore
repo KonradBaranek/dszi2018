@@ -3,3 +3,8 @@
 
 /cnn/binImages
 /cnn/node_modules
+/cnn/cnn-model
+/recognizeTrashBinCnn/binImages
+/recognizeTrashBinCnn/node_modules
+/recongnizeTrash/binImages
+/recongnizeTrash/node_modules

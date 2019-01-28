@@ -8,6 +8,8 @@ export default class BinTypeReco {
 
   async loadModel() {
     const modelT = await tf.loadModel('http://localhost:5000/model.json');
+    console.log("AFTER MODEL GEN CORRECT @@@");
+    console.log(modelT);
     modelT.summary();
     this.model = modelT;
   }

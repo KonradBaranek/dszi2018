@@ -1,8 +1,15 @@
 import imagesInTrash from './imagesInTrash.json';
+import imagesIsTrashBin from './imagesIsTrashBin.json';
 import imagesJSON from './images.json';
 
 export const TRASH_IMAGES = imagesJSON;
 export const JUNK_IMAGES = imagesInTrash;
+export const IS_BIN_IMAGES = imagesIsTrashBin;
+
+export const IS_TRASH_BIN_PREDICTION = {
+  bin: [1, 0],
+  nobin: [0, 1],
+};
 
 export const TRASH_PREDICTION = {
   papier: [1, 0, 0, 0, 0],
@@ -37,6 +44,7 @@ export const ROADS_FACTOR = 4; // cannot be smaller than 4 (will freeze brovser)
 
 export const MAX_BIN_SIZE = 4;
 export const BIN_TYPES = ['mix', 'plasticAlm', 'papier', 'szklo', 'bio'];
+export const PREVERIFICATION_TYPES = ['bin', 'nobin'];
 
 export const DIRECTIONS = {
   up: 0,

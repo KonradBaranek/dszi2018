@@ -1,7 +1,9 @@
 import {
   BIN_TYPES,
+  PREVERIFICATION_TYPES,
   JUNKYARD,
   JUNK_IMAGES,
+  IS_BIN_IMAGES,
   MAX_BIN_SIZE,
   ROADS_FACTOR,
   ROAD_WEIGHT,
@@ -31,17 +33,21 @@ export default class CreateWorld {
     return this.map;
   }
 
+  preBinVerification() {
+
+    const roughlyBinPhoto = IS_BIN_IMAGES.mix[Math.floor(Math.random() * IS_BIN_IMAGES.mix.length)];
+
+    return roughlyBinPhoto;
+  }
+
   bins() {
     const bins = [];
     const mixFoto = TRASH_IMAGES.mix[Math.floor(Math.random() * TRASH_IMAGES.mix.length)];
     const mixFotoTrash = JUNK_IMAGES.mix[Math.floor(Math.random() * JUNK_IMAGES.mix.length)];
-    console.log(TRASH_IMAGES.mix.length);
-    console.log(JUNK_IMAGES.mix.length);
-    console.log(Math.random() * JUNK_IMAGES.mix.length);
-    console.log(Math.random() * TRASH_IMAGES.mix.length);
+    console.log(IS_BIN_IMAGES);
 
     bins.push(
-      new Bin( BIN_TYPES[0], `trash/mix/${mixFoto}` , `insideBin/mix/${mixFotoTrash}` , Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
+      new Bin(BIN_TYPES[0], `trash/mix/${mixFoto}`, `insideBin/mix/${mixFotoTrash}`, 0, Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
     );
 
     const types = [...BIN_TYPES];
@@ -54,7 +60,7 @@ export default class CreateWorld {
         console.log(foto);
         console.log(trashPhoto);
         bins.push(
-          new Bin(type, `trash/${type}/${foto}`, `insideBin/${type}/${trashPhoto}`,Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
+          new Bin(type, `trash/${type}/${foto}`, `insideBin/${type}/${trashPhoto}`, 0, Math.floor(Math.random() * MAX_BIN_SIZE) + 1),
         );
       }
     });
@@ -63,7 +69,7 @@ export default class CreateWorld {
   }
 
   house(indexWidth, indexHeight) {
-    return new House(this.bins(), {
+    return new House(this.preBinVerification(), this.bins(), {
       posX: indexWidth,
       posY: indexHeight,
     });
